@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的科幻世界</title>
+    <title>多多的奇思妙想</title>
     <style>
         /* 重置默认样式 */
         * {
@@ -15,29 +15,127 @@
         body {
             font-family: 'Microsoft YaHei', sans-serif;
             line-height: 1.6;
-            background-color: #0a1929;
-            color: #e0f7fa;
+            background-color: #0f0221;
+            color: #fff;
             background-image: 
-                radial-gradient(circle at 15% 50%, rgba(25, 118, 210, 0.1), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.1), transparent 25%);
+                radial-gradient(circle at 15% 50%, rgba(255, 0, 255, 0.1), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 255, 255, 0.1), transparent 25%);
+            overflow-x: hidden;
+        }
+
+        /* 欢迎页样式 */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0f0221;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: all 0.5s ease;
+        }
+
+        .welcome-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .welcome-title {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 
+                0 0 5px #ff00ff,
+                0 0 10px #ff00ff,
+                0 0 20px #ff00ff,
+                0 0 40px #ff00ff;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                text-shadow: 
+                    0 0 5px #ff00ff,
+                    0 0 10px #ff00ff,
+                    0 0 20px #ff00ff,
+                    0 0 40px #ff00ff;
+            }
+            50% {
+                text-shadow: 
+                    0 0 10px #00ffff,
+                    0 0 20px #00ffff,
+                    0 0 40px #00ffff,
+                    0 0 80px #00ffff;
+            }
+            100% {
+                text-shadow: 
+                    0 0 5px #ff00ff,
+                    0 0 10px #ff00ff,
+                    0 0 20px #ff00ff,
+                    0 0 40px #ff00ff;
+            }
+        }
+
+        .enter-button {
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid #ff00ff;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px #ff00ff;
+            box-shadow: 0 0 10px #ff00ff;
+        }
+
+        .enter-button:hover {
+            background-color: rgba(255, 0, 255, 0.2);
+            box-shadow: 
+                0 0 15px #ff00ff,
+                0 0 30px #ff00ff;
+            transform: translateY(-3px);
+        }
+
+        /* 加载动画 */
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ff00ff;
+            border-radius: 50%;
+            margin-top: 2rem;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* 导航栏样式 */
         .navbar {
-            background-color: rgba(13, 19, 33, 0.8);
+            background-color: rgba(15, 2, 33, 0.8);
             backdrop-filter: blur(10px);
             padding: 1rem;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 0, 255, 0.3);
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-            justify-content: center;
+            justify-content: flex-end;
+            padding-right: 2rem;
         }
 
         .nav-links li {
@@ -45,7 +143,7 @@
         }
 
         .nav-links a {
-            color: #4fc3f7;
+            color: #ff80ab;
             text-decoration: none;
             font-size: 1.1rem;
             transition: all 0.3s ease;
@@ -54,8 +152,10 @@
         }
 
         .nav-links a:hover {
-            color: #00e5ff;
-            text-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
+            color: #ff00ff;
+            text-shadow: 
+                0 0 5px #ff00ff,
+                0 0 10px #ff00ff;
         }
 
         .nav-links a::after {
@@ -65,7 +165,7 @@
             height: 2px;
             bottom: 0;
             left: 0;
-            background-color: #00e5ff;
+            background-color: #ff00ff;
             transition: width 0.3s ease;
         }
 
@@ -82,25 +182,29 @@
 
         /* 个人介绍卡片 */
         .profile-card {
-            background-color: rgba(25, 33, 46, 0.8);
+            background-color: rgba(25, 10, 41, 0.8);
             border-radius: 10px;
             padding: 2rem;
-            box-shadow: 0 5px 20px rgba(0, 229, 255, 0.2);
+            box-shadow: 
+                0 0 10px rgba(255, 0, 255, 0.2),
+                0 0 20px rgba(255, 0, 255, 0.1);
             margin-bottom: 2rem;
-            border: 1px solid rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(255, 0, 255, 0.3);
             backdrop-filter: blur(5px);
         }
 
         .profile-card h1 {
-            color: #4fc3f7;
+            color: #ff80ab;
             margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
-            border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+            text-shadow: 
+                0 0 5px #ff00ff,
+                0 0 10px #ff00ff;
+            border-bottom: 1px solid rgba(255, 0, 255, 0.3);
             padding-bottom: 0.5rem;
         }
 
         .profile-card p {
-            color: #b3e5fc;
+            color: #e0f7fa;
             margin-bottom: 1rem;
         }
 
@@ -114,14 +218,15 @@
         .jump-button {
             display: inline-block;
             padding: 1rem 2rem;
-            background-color: rgba(0, 229, 255, 0.2);
-            color: #e0f7fa;
+            background-color: rgba(255, 0, 255, 0.1);
+            color: #fff;
             text-decoration: none;
             border-radius: 5px;
             transition: all 0.3s ease;
-            border: 1px solid rgba(0, 229, 255, 0.5);
+            border: 1px solid rgba(255, 0, 255, 0.5);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
         }
 
         .jump-button::before {
@@ -134,7 +239,7 @@
             background: linear-gradient(
                 90deg,
                 transparent,
-                rgba(0, 229, 255, 0.2),
+                rgba(255, 0, 255, 0.2),
                 transparent
             );
             transition: 0.5s;
@@ -145,8 +250,10 @@
         }
 
         .jump-button:hover {
-            background-color: rgba(0, 229, 255, 0.3);
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+            background-color: rgba(255, 0, 255, 0.2);
+            box-shadow: 
+                0 0 15px rgba(255, 0, 255, 0.5),
+                0 0 30px rgba(255, 0, 255, 0.3);
             transform: translateY(-3px);
         }
 
@@ -154,17 +261,21 @@
         .section {
             margin-bottom: 3rem;
             padding: 2rem;
-            background-color: rgba(25, 33, 46, 0.8);
+            background-color: rgba(25, 10, 41, 0.8);
             border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 229, 255, 0.2);
-            border: 1px solid rgba(0, 229, 255, 0.1);
+            box-shadow: 
+                0 0 10px rgba(255, 0, 255, 0.2),
+                0 0 20px rgba(255, 0, 255, 0.1);
+            border: 1px solid rgba(255, 0, 255, 0.3);
         }
 
         .section h2 {
-            color: #4fc3f7;
+            color: #ff80ab;
             margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
-            border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+            text-shadow: 
+                0 0 5px #ff00ff,
+                0 0 10px #ff00ff;
+            border-bottom: 1px solid rgba(255, 0, 255, 0.3);
             padding-bottom: 0.5rem;
         }
 
@@ -172,7 +283,7 @@
         @media (max-width: 768px) {
             .nav-links {
                 flex-direction: column;
-                text-align: center;
+                align-items: flex-end;
             }
 
             .nav-links li {
@@ -182,15 +293,28 @@
             .container {
                 margin-top: 8rem;
             }
+            
+            .welcome-title {
+                font-size: 2rem;
+                text-align: center;
+                padding: 0 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- 欢迎页面 -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <h1 class="welcome-title">欢迎来到多多的霓虹世界</h1>
+        <button class="enter-button" id="enterButton">进入网站</button>
+        <div class="loader" id="loader"></div>
+    </div>
+
     <!-- 导航栏 -->
     <nav class="navbar">
         <ul class="nav-links">
             <li><a href="#about">关于我</a></li>
-            <li><a href="#projects">我的项目</a></li>
+            <li><a href="https://www.xiaohongshu.com/user/profile/63dfd045000000002600525c?xsec_token=YBPpQ4n2OZWx2sye-d5UrGpp4Obslpma-mpvC1yqEtFI0%3D&xsec_source=app_share&xhsshare=CopyLink&appuid=63dfd045000000002600525c&apptime=1742304513&share_id=220b36ec3e2c4b4b9bd0bf5945c70b79&share_channel=copy_link" target="_blank">小红书</a></li>
             <li><a href="#contact">联系方式</a></li>
         </ul>
     </nav>
@@ -199,27 +323,13 @@
     <div class="container">
         <!-- 个人介绍卡片 -->
         <div class="profile-card" id="about">
-            <h1>欢迎来到我的科幻世界</h1>
+            <h1>欢迎来到多多的思考空间</h1>
             <p>
-                大家好，我是多多。作为一名穿梭于数字星河的旅行者，我致力于探索人工智能的无限边界。
+                大家好，我是多多。作为一名AI训练师，我喜欢探索AI领域，去了解和探索AI的奥秘。在这个科技与想象力交织的宇宙中，每一次思考都是一场星际之旅。
             </p>
             <p>
-                我是一名AI训练师，专注于探索AI领域，去了解和探索AI的奥秘。在这个科技与想象力交织的宇宙中，每一行代码都是通往未知世界的坐标。
+                我是一名AI训练师，喜欢探索AI领域，去了解和探索AI的奥秘。在这个科技与想象力交织的宇宙中，每一次思考都是一场星际之旅。
             </p>
-        </div>
-
-        <!-- 项目区域 -->
-        <div class="section" id="projects">
-            <h2>我的项目</h2>
-            <p>在这片数字星域中，我创造了以下作品：</p>
-            <div class="button-container">
-                <a href="https://网站1地址" class="jump-button" target="_blank">
-                    量子计算模拟器
-                </a>
-                <a href="https://网站2地址" class="jump-button" target="_blank">
-                    星际旅行指南
-                </a>
-            </div>
         </div>
 
         <!-- 联系方式 -->
@@ -227,14 +337,39 @@
             <h2>联系方式</h2>
             <p>如果你想一起探索数字宇宙的奥秘，可以通过以下方式找到我：</p>
             <div class="button-container">
-                <a href="mailto:your-email@example.com" class="jump-button">
-                    星际邮件
+                <a href="tel:17639209156" class="jump-button">
+                    电话：17639209156
                 </a>
-                <a href="https://github.com/yourusername" class="jump-button" target="_blank">
-                    代码仓库
+                <a href="mailto:17639209156@163.com" class="jump-button">
+                    邮箱：17639209156@163.com
                 </a>
             </div>
         </div>
     </div>
+
+    <script>
+        // 欢迎页面功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const enterButton = document.getElementById('enterButton');
+            const loader = document.getElementById('loader');
+            
+            enterButton.addEventListener('click', function() {
+                // 显示加载动画
+                enterButton.style.display = 'none';
+                loader.style.display = 'block';
+                
+                // 2秒后隐藏欢迎页面
+                setTimeout(function() {
+                    welcomeScreen.classList.add('hidden');
+                    // 防止滚动恢复后页面跳动
+                    document.body.style.overflow = 'auto';
+                }, 2000);
+            });
+            
+            // 初始时阻止滚动
+            document.body.style.overflow = 'hidden';
+        });
+    </script>
 </body>
 </html>
