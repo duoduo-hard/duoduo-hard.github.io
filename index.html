@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人网站</title>
+    <title>我的科幻世界</title>
     <style>
         /* 重置默认样式 */
         * {
@@ -15,18 +15,23 @@
         body {
             font-family: 'Microsoft YaHei', sans-serif;
             line-height: 1.6;
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: #0a1929;
+            color: #e0f7fa;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(25, 118, 210, 0.1), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.1), transparent 25%);
         }
 
         /* 导航栏样式 */
         .navbar {
-            background-color: #333;
+            background-color: rgba(13, 19, 33, 0.8);
+            backdrop-filter: blur(10px);
             padding: 1rem;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            border-bottom: 1px solid rgba(0, 229, 255, 0.3);
         }
 
         .nav-links {
@@ -40,14 +45,32 @@
         }
 
         .nav-links a {
-            color: white;
+            color: #4fc3f7;
             text-decoration: none;
             font-size: 1.1rem;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
         }
 
         .nav-links a:hover {
-            color: #00bcd4;
+            color: #00e5ff;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #00e5ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         /* 主要内容区域 */
@@ -59,20 +82,25 @@
 
         /* 个人介绍卡片 */
         .profile-card {
-            background-color: white;
+            background-color: rgba(25, 33, 46, 0.8);
             border-radius: 10px;
             padding: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0, 229, 255, 0.2);
             margin-bottom: 2rem;
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            backdrop-filter: blur(5px);
         }
 
         .profile-card h1 {
-            color: #2c3e50;
+            color: #4fc3f7;
             margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+            border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+            padding-bottom: 0.5rem;
         }
 
         .profile-card p {
-            color: #666;
+            color: #b3e5fc;
             margin-bottom: 1rem;
         }
 
@@ -86,15 +114,58 @@
         .jump-button {
             display: inline-block;
             padding: 1rem 2rem;
-            background-color: #00bcd4;
-            color: white;
+            background-color: rgba(0, 229, 255, 0.2);
+            color: #e0f7fa;
             text-decoration: none;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 229, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .jump-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 229, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .jump-button:hover::before {
+            left: 100%;
         }
 
         .jump-button:hover {
-            background-color: #008ba3;
+            background-color: rgba(0, 229, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* 新增科幻元素 */
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: rgba(25, 33, 46, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 229, 255, 0.2);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+        }
+
+        .section h2 {
+            color: #4fc3f7;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+            border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+            padding-bottom: 0.5rem;
         }
 
         /* 响应式设计 */
@@ -119,8 +190,8 @@
     <nav class="navbar">
         <ul class="nav-links">
             <li><a href="#about">关于我</a></li>
-            <li><a href="#site1">站点一</a></li>
-            <li><a href="#site2">站点二</a></li>
+            <li><a href="#projects">我的项目</a></li>
+            <li><a href="#contact">联系方式</a></li>
         </ul>
     </nav>
 
@@ -128,25 +199,41 @@
     <div class="container">
         <!-- 个人介绍卡片 -->
         <div class="profile-card" id="about">
-            <h1>欢迎来到我的个人网站</h1>
+            <h1>欢迎来到我的科幻世界</h1>
             <p>
-                大家好，我是[你的名字]。// 这里填写你的个人介绍
-                我是一名[你的职业/身份]，专注于[你的领域/兴趣]。
+                大家好，我是多多。作为一名穿梭于数字星河的旅行者，我致力于探索人工智能的无限边界。
             </p>
             <p>
-                // 这里可以继续添加更多个人介绍内容
-                我热爱[你的爱好/专长]，并且一直在[你的目标/愿景]方向努力。
+                我是一名AI训练师，专注于探索AI领域，去了解和探索AI的奥秘。在这个科技与想象力交织的宇宙中，每一行代码都是通往未知世界的坐标。
             </p>
         </div>
 
-        <!-- 跳转按钮区域 -->
-        <div class="button-container">
-            <a href="https://网站1地址" class="jump-button" id="site1" target="_blank">
-                跳转到网站1
-            </a>
-            <a href="https://网站2地址" class="jump-button" id="site2" target="_blank">
-                跳转到网站2
-            </a>
+        <!-- 项目区域 -->
+        <div class="section" id="projects">
+            <h2>我的项目</h2>
+            <p>在这片数字星域中，我创造了以下作品：</p>
+            <div class="button-container">
+                <a href="https://网站1地址" class="jump-button" target="_blank">
+                    量子计算模拟器
+                </a>
+                <a href="https://网站2地址" class="jump-button" target="_blank">
+                    星际旅行指南
+                </a>
+            </div>
+        </div>
+
+        <!-- 联系方式 -->
+        <div class="section" id="contact">
+            <h2>联系方式</h2>
+            <p>如果你想一起探索数字宇宙的奥秘，可以通过以下方式找到我：</p>
+            <div class="button-container">
+                <a href="mailto:your-email@example.com" class="jump-button">
+                    星际邮件
+                </a>
+                <a href="https://github.com/yourusername" class="jump-button" target="_blank">
+                    代码仓库
+                </a>
+            </div>
         </div>
     </div>
 </body>
