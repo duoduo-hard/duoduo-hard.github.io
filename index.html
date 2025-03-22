@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>多多的奇思妙想</title>
+    <title>AI牧羊人 - 个人作品集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* 关键样式内联 */
+        :root {
+            --primary: #2A2A2A;
+            --accent: #4CAF50;
+            --text: #ffffff;
+            --dark-accent: #388E3C;
+            --light-bg: #333333;
+            --card-bg: #3A3A3A;
+        }
+
         /* 重置默认样式 */
         * {
             margin: 0;
@@ -13,149 +26,54 @@
         }
 
         body {
-            font-family: 'Microsoft YaHei', sans-serif;
+            font-family: 'Inter', 'Microsoft YaHei', sans-serif;
             line-height: 1.6;
-            background-color: #0f0221;
-            color: #fff;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(255, 0, 255, 0.1), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(0, 255, 255, 0.1), transparent 25%);
+            background-color: var(--primary);
+            color: var(--text);
             overflow-x: hidden;
-        }
-
-        /* 欢迎页样式 */
-        .welcome-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #0f0221;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            transition: all 0.5s ease;
-        }
-
-        .welcome-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .welcome-title {
-            font-size: 3.5rem;
-            margin-bottom: 2rem;
-            text-shadow: 
-                0 0 5px #ff00ff,
-                0 0 10px #ff00ff,
-                0 0 20px #ff00ff,
-                0 0 40px #ff00ff;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                text-shadow: 
-                    0 0 5px #ff00ff,
-                    0 0 10px #ff00ff,
-                    0 0 20px #ff00ff,
-                    0 0 40px #ff00ff;
-            }
-            50% {
-                text-shadow: 
-                    0 0 10px #00ffff,
-                    0 0 20px #00ffff,
-                    0 0 40px #00ffff,
-                    0 0 80px #00ffff;
-            }
-            100% {
-                text-shadow: 
-                    0 0 5px #ff00ff,
-                    0 0 10px #ff00ff,
-                    0 0 20px #ff00ff,
-                    0 0 40px #ff00ff;
-            }
-        }
-
-        .enter-button {
-            padding: 1rem 3rem;
-            font-size: 1.2rem;
-            background-color: transparent;
-            color: #fff;
-            border: 2px solid #ff00ff;
-            border-radius: 5px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 5px #ff00ff;
-            box-shadow: 0 0 10px #ff00ff;
-        }
-
-        .enter-button:hover {
-            background-color: rgba(255, 0, 255, 0.2);
-            box-shadow: 
-                0 0 15px #ff00ff,
-                0 0 30px #ff00ff;
-            transform: translateY(-3px);
-        }
-
-        /* 加载动画 */
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #ff00ff;
-            border-radius: 50%;
-            margin-top: 2rem;
-            animation: spin 1s linear infinite;
-            display: none;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         /* 导航栏样式 */
         .navbar {
-            background-color: rgba(15, 2, 33, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 1rem;
+            background-color: var(--primary);
+            padding: 1rem 2rem;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 0, 255, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-            justify-content: flex-end;
-            padding-right: 2rem;
         }
 
         .nav-links li {
-            margin: 0 1rem;
+            margin-left: 2rem;
         }
 
         .nav-links a {
-            color: #ff80ab;
+            color: var(--text);
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
             position: relative;
             padding: 0.5rem 0;
-        }
-
-        .nav-links a:hover {
-            color: #ff00ff;
-            text-shadow: 
-                0 0 5px #ff00ff,
-                0 0 10px #ff00ff;
         }
 
         .nav-links a::after {
@@ -165,7 +83,7 @@
             height: 2px;
             bottom: 0;
             left: 0;
-            background-color: #ff00ff;
+            background-color: var(--accent);
             transition: width 0.3s ease;
         }
 
@@ -173,202 +91,464 @@
             width: 100%;
         }
 
-        /* 主要内容区域 */
-        .container {
-            max-width: 1200px;
-            margin: 6rem auto 2rem;
-            padding: 0 2rem;
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 21px;
+            position: relative;
+            z-index: 1001;
         }
 
-        /* 个人介绍卡片 */
-        .profile-card {
-            background-color: rgba(25, 10, 41, 0.8);
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 
-                0 0 10px rgba(255, 0, 255, 0.2),
-                0 0 20px rgba(255, 0, 255, 0.1);
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 0, 255, 0.3);
-            backdrop-filter: blur(5px);
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--text);
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
         }
 
-        .profile-card h1 {
-            color: #ff80ab;
-            margin-bottom: 1rem;
-            text-shadow: 
-                0 0 5px #ff00ff,
-                0 0 10px #ff00ff;
-            border-bottom: 1px solid rgba(255, 0, 255, 0.3);
-            padding-bottom: 0.5rem;
+        .hamburger span:nth-child(1) { top: 0px; }
+        .hamburger span:nth-child(2) { top: 9px; }
+        .hamburger span:nth-child(3) { top: 18px; }
+
+        .hamburger.open span:nth-child(1) {
+            top: 9px;
+            transform: rotate(135deg);
         }
 
-        .profile-card p {
-            color: #e0f7fa;
-            margin-bottom: 1rem;
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
         }
 
-        /* 跳转按钮样式 */
-        .button-container {
+        .hamburger.open span:nth-child(3) {
+            top: 9px;
+            transform: rotate(-135deg);
+        }
+
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            background-image: linear-gradient(rgba(42, 42, 42, 0.7), rgba(42, 42, 42, 0.9)), url('https://images.unsplash.com/photo-1522252234503-e356532cafd5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
         }
 
-        .jump-button {
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            color: #e0e0e0;
+        }
+
+        .hero .accent {
+            color: var(--accent);
+        }
+
+        .cta-button {
             display: inline-block;
-            padding: 1rem 2rem;
-            background-color: rgba(255, 0, 255, 0.1);
-            color: #fff;
+            padding: 1rem 2.5rem;
+            background-color: var(--accent);
+            color: var(--text);
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 4px;
+            font-weight: 500;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 0, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background-color: var(--dark-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* 项目区域 */
+        .projects {
+            padding: 5rem 2rem;
+            background-color: var(--light-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+            margin: 1rem auto;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background-color: #555;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
         }
 
-        .jump-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        .project-image img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 0, 255, 0.2),
-                transparent
-            );
-            transition: 0.5s;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        .jump-button:hover::before {
-            left: 100%;
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
         }
 
-        .jump-button:hover {
-            background-color: rgba(255, 0, 255, 0.2);
-            box-shadow: 
-                0 0 15px rgba(255, 0, 255, 0.5),
-                0 0 30px rgba(255, 0, 255, 0.3);
-            transform: translateY(-3px);
+        .project-content {
+            padding: 1.5rem;
         }
 
-        /* 新增科幻元素 */
-        .section {
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background-color: rgba(25, 10, 41, 0.8);
-            border-radius: 10px;
-            box-shadow: 
-                0 0 10px rgba(255, 0, 255, 0.2),
-                0 0 20px rgba(255, 0, 255, 0.1);
-            border: 1px solid rgba(255, 0, 255, 0.3);
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
         }
 
-        .section h2 {
-            color: #ff80ab;
+        .project-content p {
+            color: #ccc;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: transparent;
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .project-link:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        /* 联系区域 */
+        .contact {
+            padding: 5rem 2rem;
+            background-color: var(--primary);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
             margin-bottom: 1rem;
-            text-shadow: 
-                0 0 5px #ff00ff,
-                0 0 10px #ff00ff;
-            border-bottom: 1px solid rgba(255, 0, 255, 0.3);
-            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-item svg {
+            margin-right: 0.5rem;
+            fill: var(--accent);
+        }
+
+        /* 页脚 */
+        .footer {
+            background-color: #222;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer p {
+            color: #777;
+            font-size: 0.9rem;
         }
 
         /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .project-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--primary);
                 flex-direction: column;
-                align-items: flex-end;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.3s ease;
+                z-index: 1000;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            }
+
+            .nav-links.active {
+                right: 0;
             }
 
             .nav-links li {
-                margin: 0.5rem 0;
+                margin: 1.5rem 0;
             }
 
-            .container {
-                margin-top: 8rem;
+            .hamburger {
+                display: block;
             }
-            
-            .welcome-title {
-                font-size: 2rem;
-                text-align: center;
-                padding: 0 1rem;
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 欢迎页面 -->
-    <div class="welcome-screen" id="welcomeScreen">
-        <h1 class="welcome-title">欢迎来到多多的霓虹世界</h1>
-        <button class="enter-button" id="enterButton">进入网站</button>
-        <div class="loader" id="loader"></div>
-    </div>
-
     <!-- 导航栏 -->
     <nav class="navbar">
-        <ul class="nav-links">
-            <li><a href="#about">关于我</a></li>
-            <li><a href="https://www.xiaohongshu.com/user/profile/63dfd045000000002600525c?xsec_token=YBPpQ4n2OZWx2sye-d5UrGpp4Obslpma-mpvC1yqEtFI0%3D&xsec_source=app_share&xhsshare=CopyLink&appuid=63dfd045000000002600525c&apptime=1742304513&share_id=220b36ec3e2c4b4b9bd0bf5945c70b79&share_channel=copy_link" target="_blank">小红书</a></li>
-            <li><a href="#contact">联系方式</a></li>
+        <a href="#" class="logo">AI<span>牧羊人</span></a>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">首页</a></li>
+            <li><a href="#projects">项目</a></li>
+            <li><a href="#blog">博客</a></li>
+            <li><a href="#contact">联系</a></li>
         </ul>
     </nav>
 
-    <!-- 主要内容区域 -->
-    <div class="container">
-        <!-- 个人介绍卡片 -->
-        <div class="profile-card" id="about">
-            <h1>欢迎来到多多的思考空间</h1>
-            <p>
-                大家好，我是多多。作为一名AI训练师，我喜欢探索AI领域，去了解和探索AI的奥秘。在这个科技与想象力交织的宇宙中，每一次思考都是一场星际之旅。
-            </p>
-            <p>
-                我是一名AI训练师，喜欢探索AI领域，去了解和探索AI的奥秘。在这个科技与想象力交织的宇宙中，每一次思考都是一场星际之旅。
-            </p>
-        </div>
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <h1>你好，我是<span class="accent">AI牧羊人</span></h1>
+        <p>专注于人工智能技术开发与实践，致力于创造智能化未来</p>
+        <a href="#projects" class="cta-button">查看我的作品</a>
+    </section>
 
-        <!-- 联系方式 -->
-        <div class="section" id="contact">
-            <h2>联系方式</h2>
-            <p>如果你想一起探索数字宇宙的奥秘，可以通过以下方式找到我：</p>
-            <div class="button-container">
-                <a href="tel:17639209156" class="jump-button">
-                    电话：17639209156
-                </a>
-                <a href="mailto:17639209156@163.com" class="jump-button">
-                    邮箱：17639209156@163.com
-                </a>
+    <!-- 项目展示区 -->
+    <section class="projects" id="projects">
+        <h2 class="section-title">我的项目</h2>
+        <div class="project-grid">
+            <!-- 项目卡片1 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img data-src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="项目1" class="lazy-image">
+                </div>
+                <div class="project-content">
+                    <h3>智能助手系统</h3>
+                    <p>基于自然语言处理技术开发的智能对话助手，能够理解复杂指令并执行多步骤任务。</p>
+                    <a href="#" class="project-link">查看详情</a>
+                </div>
+            </div>
+            
+            <!-- 项目卡片2 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img data-src="https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="项目2" class="lazy-image">
+                </div>
+                <div class="project-content">
+                    <h3>图像识别平台</h3>
+                    <p>利用深度学习模型构建的图像识别系统，可以快速准确地分类和标记图像内容。</p>
+                    <a href="#" class="project-link">查看详情</a>
+                </div>
+            </div>
+            
+            <!-- 项目卡片3 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img data-src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="项目3" class="lazy-image">
+                </div>
+                <div class="project-content">
+                    <h3>数据可视化工具</h3>
+                    <p>将复杂数据转化为直观图表的工具，帮助用户快速理解数据趋势和模式。</p>
+                    <a href="#" class="project-link">查看详情</a>
+                </div>
+            </div>
+            
+            <!-- 项目卡片4 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img data-src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="项目4" class="lazy-image">
+                </div>
+                <div class="project-content">
+                    <h3>智能推荐系统</h3>
+                    <p>基于用户行为分析的个性化内容推荐系统，提高用户体验和参与度。</p>
+                    <a href="#" class="project-link">查看详情</a>
+                </div>
+            </div>
+            
+            <!-- 项目卡片5 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img data-src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="项目5" class="lazy-image">
+                </div>
+                <div class="project-content">
+                    <h3>自动化测试框架</h3>
+                    <p>为AI应用程序设计的自动化测试框架，确保模型性能和稳定性。</p>
+                    <a href="#" class="project-link">查看详情</a>
+                </div>
+            </div>
+            
+            <!-- 项目卡片6 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img data-src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="项目6" class="lazy-image">
+                </div>
+                <div class="project-content">
+                    <h3>区块链应用</h3>
+                    <p>结合AI和区块链技术的创新应用，提供安全透明的数据管理解决方案。</p>
+                    <a href="#" class="project-link">查看详情</a>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- 联系区域 -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">联系我</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
+                    <span>17639209156@163.com</span>
+                </div>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M20 22.621l-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-8.994l2.083-1.026-3.493-6.817-2.106 1.039c-7.202 3.755 4.233 25.982 11.6 22.615.121-.055 2.102-1.029 2.11-1.033z"/></svg>
+                    <span>17639209156</span>
+                </div>
+            </div>
+            <a href="mailto:17639209156@163.com" class="cta-button">发送邮件</a>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>&copy; 2024 AI牧羊人. 保留所有权利.</p>
+    </footer>
 
     <script>
-        // 欢迎页面功能
+        // 汉堡菜单功能
         document.addEventListener('DOMContentLoaded', function() {
-            const welcomeScreen = document.getElementById('welcomeScreen');
-            const enterButton = document.getElementById('enterButton');
-            const loader = document.getElementById('loader');
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
             
-            enterButton.addEventListener('click', function() {
-                // 显示加载动画
-                enterButton.style.display = 'none';
-                loader.style.display = 'block';
-                
-                // 2秒后隐藏欢迎页面
-                setTimeout(function() {
-                    welcomeScreen.classList.add('hidden');
-                    // 防止滚动恢复后页面跳动
-                    document.body.style.overflow = 'auto';
-                }, 2000);
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                navLinks.classList.toggle('active');
             });
             
-            // 初始时阻止滚动
-            document.body.style.overflow = 'hidden';
+            // 点击导航链接后关闭菜单
+            const navItems = document.querySelectorAll('.nav-links a');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('active');
+                });
+            });
+            
+            // 图片懒加载
+            const lazyImages = document.querySelectorAll('.lazy-image');
+            
+            // 使用 Intersection Observer API 实现懒加载
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const image = entry.target;
+                            image.src = image.dataset.src;
+                            image.classList.remove('lazy-image');
+                            imageObserver.unobserve(image);
+                        }
+                    });
+                });
+                
+                lazyImages.forEach(image => {
+                    imageObserver.observe(image);
+                });
+            } else {
+                // 回退方案：立即加载所有图片
+                lazyImages.forEach(image => {
+                    image.src = image.dataset.src;
+                    image.classList.remove('lazy-image');
+                });
+            }
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
         });
     </script>
 </body>
